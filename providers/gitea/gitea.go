@@ -123,7 +123,7 @@ func (p *Provider) FetchUser(session goth.Session) (goth.User, error) {
 	// 	return user, err
 	// }
 
-	err = userFromReader(bytes.NewReader(bits), &user)
+	err = userFromReader(bits, &user)
 
 	return user, err
 }
@@ -148,9 +148,9 @@ func newConfig(provider *Provider, authURL, tokenURL string, scopes []string) *o
 	return c
 }
 
-func userFromReader(r io.Reader, user *goth.User) error {
+func userFromReader(r []byte, user *goth.User) error {
 	var s map[string]interface{}
-	err := json.Unmarshal([]byte(r), &s)
+	err := json.Unmarshal(r, &s)
 	fmt.Println("======================", string(s))
 	if err != nil {
 		return err
