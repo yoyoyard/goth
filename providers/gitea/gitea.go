@@ -158,19 +158,19 @@ func userFromReader(r []byte, user *goth.User) error {
 	// user.NickName = u.NickName
 	// user.UserID = strconv.Itoa(u.ID)
 	// user.AvatarURL = u.AvatarURL
-	if _, ok := s["mail"]; ok {
+	if _, ok := s["mail"].(string); ok {
 		user.Email = s["mail"].(string)
 	} else {
 		user.Email = ""
 	}
 
-	if _, ok := s["loginName"]; ok {
+	if _, ok := s["loginName"].(string); ok {
 		user.Name = s["loginName"].(string)
 	} else {
 		user.Name = ""
 	}
 
-	if _, ok := s["displayName"]; ok {
+	if _, ok := s["displayName"].(string); ok {
 		user.NickName = s["displayName"].(string)
 	} else {
 		user.NickName = ""
