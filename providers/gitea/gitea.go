@@ -100,7 +100,7 @@ func (p *Provider) FetchUser(session goth.Session) (goth.User, error) {
 		return user, fmt.Errorf("%s cannot get user information without accessToken", p.providerName)
 	}
 
-	response, err := p.Client().Get(p.profileURL + "?access_token=" + url.QueryEscape(sess.AccessToken))
+	response, err := p.Client().Get(p.profileURL + "?access_token=" + url.QueryEscape(sess.AccessToken) + "&client_id=dmgl")
 	if err != nil {
 		if response != nil {
 			response.Body.Close()
@@ -119,10 +119,10 @@ func (p *Provider) FetchUser(session goth.Session) (goth.User, error) {
 		return user, err
 	}
 
-	err = json.NewDecoder(bytes.NewReader(bits)).Decode(&user.RawData)
-	if err != nil {
-		return user, err
-	}
+	// err = json.NewDecoder(bytes.NewReader(bits)).Decode(&user.RawData)
+	// if err != nil {
+	// 	return user, err
+	// }
 
 	err = userFromReader(bytes.NewReader(bits), &user)
 
@@ -150,22 +150,20 @@ func newConfig(provider *Provider, authURL, tokenURL string, scopes []string) *o
 }
 
 func userFromReader(r io.Reader, user *goth.User) error {
-	u := struct {
-		Name      string `json:"full_name"`
-		Email     string `json:"email"`
-		NickName  string `json:"login"`
-		ID        int    `json:"id"`
-		AvatarURL string `json:"avatar_url"`
-	}{}
-	err := json.NewDecoder(r).Decode(&u)
+	var s map[string]interface{}
+	err := json.Unmarshal([]byte(r), &s)
+	fmt.Println("======================", s)
 	if err != nil {
 		return err
 	}
-	user.Email = u.Email
-	user.Name = u.Name
-	user.NickName = u.NickName
-	user.UserID = strconv.Itoa(u.ID)
-	user.AvatarURL = u.AvatarURL
+	// user.Email = u.Email
+	// user.Name = u.Name
+	// user.NickName = u.NickName
+	// user.UserID = strconv.Itoa(u.ID)
+	// user.AvatarURL = u.AvatarURL
+	s.Email = s["mail"].(string)
+	s.Name = s["loginName"].(string)
+	s.NickName = s["displayName"].(string)
 	return nil
 }
 
