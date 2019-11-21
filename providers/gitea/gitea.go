@@ -3,9 +3,7 @@
 package gitea
 
 import (
-	"bytes"
 	"encoding/json"
-	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -151,7 +149,7 @@ func newConfig(provider *Provider, authURL, tokenURL string, scopes []string) *o
 func userFromReader(r []byte, user *goth.User) error {
 	var s map[string]interface{}
 	err := json.Unmarshal(r, &s)
-	fmt.Println("======================", string(s))
+	fmt.Printf("======================%#v", s)
 	if err != nil {
 		return err
 	}
