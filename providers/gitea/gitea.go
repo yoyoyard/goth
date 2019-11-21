@@ -158,9 +158,9 @@ func userFromReader(r []byte, user *goth.User) error {
 	// user.NickName = u.NickName
 	// user.UserID = strconv.Itoa(u.ID)
 	// user.AvatarURL = u.AvatarURL
-	user.Email = s["mail"].(string)
-	user.Name = s["loginName"].(string)
-	user.NickName = s["displayName"].(string)
+	user.Email = s["mail"]
+	user.Name = s["loginName"]
+	user.NickName = s["displayName"]
 	return nil
 }
 
