@@ -3,9 +3,9 @@ package fitbit_test
 import (
 	"testing"
 
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/fitbit"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/fitbit"
 )
 
 func Test_ImplementsSession(t *testing.T) {

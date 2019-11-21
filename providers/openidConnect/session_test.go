@@ -1,8 +1,8 @@
 package openidConnect
 
 import (
-	"github.com/markbates/goth"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
 	"testing"
 )
 

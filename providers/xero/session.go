@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/markbates/goth"
 	"github.com/mrjones/oauth"
+	"github.com/yoyoyard/goth"
 )
 
 // Session stores data during the auth process with Xero.

@@ -15,8 +15,8 @@ import (
 
 	"golang.org/x/oauth2"
 
-	"github.com/markbates/goth"
 	"github.com/mrjones/oauth"
+	"github.com/yoyoyard/goth"
 )
 
 //Organisation is the expected response from the Organisation endpoint - this is not a complete schema

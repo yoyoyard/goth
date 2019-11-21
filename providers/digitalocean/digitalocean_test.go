@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/markbates/goth/providers/digitalocean"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth/providers/digitalocean"
 )
 
 func Test_New(t *testing.T) {

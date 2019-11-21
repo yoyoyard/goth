@@ -1,9 +1,9 @@
 package meetup_test
 
 import (
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/meetup"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/meetup"
 	"os"
 	"testing"
 )

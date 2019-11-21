@@ -3,9 +3,9 @@ package bitbucket_test
 import (
 	"testing"
 
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/bitbucket"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/bitbucket"
 )
 
 func Test_Implements_Session(t *testing.T) {

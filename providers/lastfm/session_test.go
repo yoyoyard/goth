@@ -3,8 +3,8 @@ package lastfm
 import (
 	"testing"
 
-	"github.com/markbates/goth"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
 )
 
 func Test_Implements_Session(t *testing.T) {

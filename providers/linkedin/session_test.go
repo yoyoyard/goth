@@ -3,9 +3,9 @@ package linkedin_test
 import (
 	"testing"
 
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/linkedin"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/linkedin"
 )
 
 func Test_Implements_Session(t *testing.T) {

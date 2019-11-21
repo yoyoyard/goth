@@ -1,9 +1,9 @@
 package yandex_test
 
 import (
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/yandex"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/yandex"
 	"os"
 	"testing"
 )
@@ -25,7 +25,6 @@ func Test_Name(t *testing.T) {
 	p := provider()
 	a.Equal(p.Name(), "yandex")
 }
-
 
 func Test_Implements_Provider(t *testing.T) {
 	t.Parallel()

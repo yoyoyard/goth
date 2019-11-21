@@ -1,9 +1,9 @@
 package onedrive_test
 
 import (
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/onedrive"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/onedrive"
 	"testing"
 )
 

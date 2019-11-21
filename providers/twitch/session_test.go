@@ -3,8 +3,8 @@ package twitch
 import (
 	"testing"
 
-	"github.com/markbates/goth"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
 )
 
 func Test_ImplementsSession(t *testing.T) {

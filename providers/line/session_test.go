@@ -3,9 +3,9 @@ package line_test
 import (
 	"testing"
 
-	"github.com/markbates/goth"
-	"github.com/markbates/goth/providers/line"
 	"github.com/stretchr/testify/assert"
+	"github.com/yoyoyard/goth"
+	"github.com/yoyoyard/goth/providers/line"
 )
 
 func Test_Implements_Session(t *testing.T) {
