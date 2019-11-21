@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strconv"
 
 	"fmt"
 	"github.com/yoyoyard/goth"
@@ -152,7 +151,7 @@ func newConfig(provider *Provider, authURL, tokenURL string, scopes []string) *o
 func userFromReader(r io.Reader, user *goth.User) error {
 	var s map[string]interface{}
 	err := json.Unmarshal([]byte(r), &s)
-	fmt.Println("======================", s)
+	fmt.Println("======================", string(s))
 	if err != nil {
 		return err
 	}
@@ -161,9 +160,9 @@ func userFromReader(r io.Reader, user *goth.User) error {
 	// user.NickName = u.NickName
 	// user.UserID = strconv.Itoa(u.ID)
 	// user.AvatarURL = u.AvatarURL
-	s.Email = s["mail"].(string)
-	s.Name = s["loginName"].(string)
-	s.NickName = s["displayName"].(string)
+	user.Email = s["mail"].(string)
+	user.Name = s["loginName"].(string)
+	user.NickName = s["displayName"].(string)
 	return nil
 }
 
