@@ -1,6 +1,6 @@
 // Package pcloa implements the OAuth2 protocol for authenticating users through pcloa.
 // This package can be used as a reference implementation of an OAuth2 provider for Goth.
-package pcloa
+package oa
 
 import (
 	"encoding/json"
@@ -16,9 +16,9 @@ import (
 // These vars define the default Authentication, Token, and Profile URLS for pcloa.
 //
 // Examples:
-//	pcloa.AuthURL = "https://pcloa.acme.com/oauth/authorize
-//	pcloa.TokenURL = "https://pcloa.acme.com/oauth/token
-//	pcloa.ProfileURL = "https://pcloa.acme.com/api/v3/user
+//	oa.AuthURL = "https://pcloa.acme.com/oauth/authorize
+//	oa.TokenURL = "https://pcloa.acme.com/oauth/token
+//	oa.ProfileURL = "https://pcloa.acme.com/api/v3/user
 var (
 	AuthURL    = "https://one.pcl.ac.cn/idp/oauth2/authorize"
 	TokenURL   = "https://one.pcl.ac.cn/idp/oauth2/getToken"
