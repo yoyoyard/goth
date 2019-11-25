@@ -155,6 +155,7 @@ func userFromReader(r []byte, user *goth.User) error {
 	user.Email = ""
 	user.Name = ""
 	user.NickName = ""
+	user.UserID = ""
 	if _, ok := s["mail"].(string); ok {
 		user.Email = s["mail"].(string)
 	}
@@ -165,6 +166,7 @@ func userFromReader(r []byte, user *goth.User) error {
 
 	if _, ok := s["loginName"].(string); ok {
 		user.NickName = s["loginName"].(string)
+		user.UserID = s["loginName"].(string)
 	}
 	return nil
 }
