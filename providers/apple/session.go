@@ -20,7 +20,9 @@ const (
 )
 
 type ID struct {
-	Sub string `json:"sub"`
+	Sub            string `json:"sub"`
+	Email          string `json:"email"`
+	IsPrivateEmail bool   `json:"is_private_email"`
 }
 
 type Session struct {
@@ -47,6 +49,8 @@ type IDTokenClaims struct {
 	jwt.StandardClaims
 	AccessTokenHash string `json:"at_hash"`
 	AuthTime        int    `json:"auth_time"`
+	Email           string `json:"email"`
+	IsPrivateEmail  bool   `json:"is_private_email,string"`
 }
 
 func (s *Session) Authorize(provider goth.Provider, params goth.Params) (string, error) {
@@ -71,6 +75,7 @@ func (s *Session) Authorize(provider goth.Provider, params goth.Params) (string,
 
 	if idToken := token.Extra("id_token"); idToken != nil {
 		idToken, err := jwt.ParseWithClaims(idToken.(string), &IDTokenClaims{}, func(t *jwt.Token) (interface{}, error) {
+			kid := t.Header["kid"].(string)
 			claims := t.Claims.(*IDTokenClaims)
 			vErr := new(jwt.ValidationError)
 			if !claims.VerifyAudience(p.clientId, true) {
@@ -96,12 +101,18 @@ func (s *Session) Authorize(provider goth.Provider, params goth.Params) (string,
 			}
 
 			// get the public key for verifying the identity token signature
-			// todo: respect Cache-Control header and retrieve this less frequently
-			set, err := jwk.FetchHTTP(idTokenVerificationKeyEndpoint, jwk.WithHTTPClient(p.httpClient))
+			set, err := jwk.FetchHTTP(idTokenVerificationKeyEndpoint, jwk.WithHTTPClient(p.Client()))
 			if err != nil {
 				return nil, err
 			}
-			pubKeyIface, _ := set.Keys[0].Materialize()
+			selectedKey := set.Keys[0]
+			for _, key := range set.Keys {
+				if key.KeyID() == kid {
+					selectedKey = key
+					break
+				}
+			}
+			pubKeyIface, _ := selectedKey.Materialize()
 			pubKey, ok := pubKeyIface.(*rsa.PublicKey)
 			if !ok {
 				return nil, fmt.Errorf(`expected RSA public key from %s`, idTokenVerificationKeyEndpoint)
@@ -112,7 +123,9 @@ func (s *Session) Authorize(provider goth.Provider, params goth.Params) (string,
 			return "", err
 		}
 		s.ID = ID{
-			Sub: idToken.Claims.(*IDTokenClaims).Subject,
+			Sub:            idToken.Claims.(*IDTokenClaims).Subject,
+			Email:          idToken.Claims.(*IDTokenClaims).Email,
+			IsPrivateEmail: idToken.Claims.(*IDTokenClaims).IsPrivateEmail,
 		}
 	}
 
